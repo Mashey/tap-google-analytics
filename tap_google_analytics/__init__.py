@@ -13,6 +13,8 @@ from tap_google_analytics.reports_helper import ReportsHelper
 from tap_google_analytics.error import *
 
 REQUIRED_CONFIG_KEYS = [
+    "key_file_location",
+    "reports",
     "start_date",
     "view_id"
 ]
@@ -110,6 +112,7 @@ def sync(config, state, catalog):
     if errors_encountered:
         sys.exit(1)
 
+    singer.write_state(f'{"last_run_date"}: "{utils.strftime(utils.now())}"')
     return
 
 def load_json(path):
@@ -140,10 +143,15 @@ def process_args():
     if 'end_date' in args.config and not args.config.get('end_date'):
         del args.config['end_date']
 
+
     # Process the [start_date, end_date) so that they define an open date window
     # that ends yesterday if end_date is not defined
     start_date = utils.strptime_to_utc(args.config['start_date'])
     args.config['start_date'] = utils.strftime(start_date,'%Y-%m-%d')
+
+    if 'last_run_date' in args.state:
+        start_date = utils.strptime_to_utc(args.state['last_run_date'])
+        args.config['start_date'] = utils.strftime(start_date, '%Y-%m-%d')
 
     end_date = args.config.get('end_date', utils.strftime(utils.now()))
     end_date = utils.strptime_to_utc(end_date) - datetime.timedelta(days=1)

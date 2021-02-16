@@ -1,0 +1,184 @@
+[
+  {
+    "name": "ga_browser_and_operating_system_overview",
+    "dimensions": [
+      "ga:browser",
+      "ga:browserVersion",
+      "ga:operatingSystem",
+      "ga:operatingSystemVersion",
+      "ga:mobileDeviceInfo",
+      "ga:deviceCategory",
+      "ga:dataSource"
+    ],
+    "metrics": ["ga:users"]
+  },
+  {
+    "name": "ga_sitecontent",
+    "dimensions": [
+      "ga:date",
+      "ga:pageTitle",
+      "ga:landingPagePath",
+      "ga:pagePathLevel1",
+      "ga:pagePath"
+    ],
+    "metrics": [
+      "ga:exits",
+      "ga:pageviews",
+      "ga:avgTimeOnPage",
+      "ga:transactionRevenue",
+      "ga:uniquePageviews",
+      "ga:exitRate",
+      "ga:entrances",
+      "ga:transactions",
+      "ga:transactionsPerSession",
+      "ga:bounceRate"
+    ]
+  },
+  {
+    "name": "ga_searchconsole",
+    "dimensions": ["ga:date", "ga:deviceCategory", "ga:adMatchedQuery"],
+    "metrics": [
+      "ga:CTR",
+      "ga:sessions",
+      "ga:transactionRevenue",
+      "ga:adClicks",
+      "ga:impressions",
+      "ga:pageviewsPerSession",
+      "ga:transactions",
+      "ga:transactionsPerSession",
+      "ga:bounceRate"
+    ]
+  },
+  {
+    "name": "ga_googleads",
+    "dimensions": [
+      "ga:date",
+      "ga:adContent",
+      "ga:dateHour",
+      "ga:adwordsCampaignID",
+      "ga:campaign",
+      "ga:adMatchedQuery",
+      "ga:keyword"
+    ],
+    "metrics": [
+      "ga:sessions",
+      "ga:transactionRevenue",
+      "ga:adClicks",
+      "ga:CPC",
+      "ga:adCost",
+      "ga:pageviewsPerSession",
+      "ga:transactions",
+      "ga:transactionsPerSession",
+      "ga:bounceRate",
+      "ga:users"
+    ]
+  },
+  {
+    "name": "ga_alltraffic",
+    "dimensions": [
+      "ga:date",
+      "ga:channelGrouping",
+      "ga:source",
+      "ga:keyword",
+      "ga:sourceMedium"
+    ],
+    "metrics": [
+      "ga:newUsers",
+      "ga:sessions",
+      "ga:avgSessionDuration",
+      "ga:transactionRevenue",
+      "ga:pageviewsPerSession",
+      "ga:transactions",
+      "ga:transactionsPerSession",
+      "ga:bounceRate",
+      "ga:users"
+    ]
+  },
+  {
+    "name": "ga_social",
+    "dimensions": ["ga:date", "ga:socialNetwork"],
+    "metrics": [
+      "ga:pageviews",
+      "ga:sessions",
+      "ga:avgSessionDuration",
+      "ga:transactionRevenue",
+      "ga:transactionRevenuePerSession",
+      "ga:pageviewsPerSession",
+      "ga:transactions"
+    ]
+  },
+  {
+    "name": "ga_sitespeed",
+    "dimensions": [
+      "ga:date",
+      "ga:pageTitle",
+      "ga:campaign",
+      "ga:landingPagePath",
+      "ga:source",
+      "ga:pagePath",
+      "ga:sourceMedium"
+    ],
+    "metrics": [
+      "ga:exits",
+      "ga:pageviews",
+      "ga:sessions",
+      "ga:pageLoadTime",
+      "ga:bounces"
+    ]
+  },
+  {
+    "name": "ga_demographics",
+    "dimensions": ["ga:date", "ga:userAgeBracket", "ga:userGender"],
+    "metrics": [
+      "ga:newUsers",
+      "ga:sessions",
+      "ga:avgSessionDuration",
+      "ga:transactionRevenue",
+      "ga:pageviewsPerSession",
+      "ga:transactions",
+      "ga:transactionsPerSession",
+      "ga:bounceRate",
+      "ga:users"
+    ]
+  },
+  {
+    "name": "ga_city",
+    "dimensions": [
+      "ga:continent",
+      "ga:date",
+      "ga:country",
+      "ga:subContinent",
+      "ga:city"
+    ],
+    "metrics": [
+      "ga:newUsers",
+      "ga:sessions",
+      "ga:avgSessionDuration",
+      "ga:transactionRevenue",
+      "ga:pageviewsPerSession",
+      "ga:transactions",
+      "ga:transactionsPerSession",
+      "ga:bounceRate",
+      "ga:users"
+    ]
+  },
+  {
+    "name": "ga_alltraffic2",
+    "dimensions": [
+      "ga:date",
+      "ga:channelGrouping",
+      "ga:source",
+      "ga:keyword",
+      "ga:sourceMedium"
+    ],
+    "metrics": [
+      "ga:newUsers",
+      "ga:pageviews",
+      "ga:sessions",
+      "ga:transactionRevenue",
+      "ga:bounces",
+      "ga:transactions",
+      "ga:users"
+    ]
+  }
+]
