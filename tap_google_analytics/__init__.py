@@ -170,8 +170,11 @@ def process_args():
                 LOGGER.critical("tap-google-analytics: The JSON definition in '{}' has errors".format(args.config['key_file_location']))
                 sys.exit(1)
         else:
-            LOGGER.critical("tap-google-analytics: '{}' file not found".format(args.config['key_file_location']))
-            sys.exit(1)
+            if args.config.get('key_file_location').is_dict():
+                args.config['client_secrets'] = args.config['key_file_location']
+            else:
+                LOGGER.critical("tap-google-analytics: '{}' file not found".format(args.config['key_file_location']))
+                sys.exit(1)
     else:
         # If using oauth credentials, verify that all required keys are present
         credentials = args.config['oauth_credentials']
