@@ -163,23 +163,9 @@ def process_args():
 
     # If using a service account, validate that the client_secrets.json file exists and load it
     if args.config.get('key_file_location'):
-        if Path(args.config['key_file_location']).is_file():
-            try:
-                args.config['client_secrets'] = load_json(args.config['key_file_location'])
-                LOGGER.info('Client Secrets loaded in from File')
-            except ValueError:
-                LOGGER.critical("tap-google-analytics: The JSON definition in '{}' has errors".format(args.config['key_file_location']))
-                sys.exit(1)
-        else:
-            if args.config.get('key_file_location').is_dict():
-                args.config['client_secrets'] = args.config['key_file_location']
-                LOGGER.info('Client Secrets loaded in from dict')
-            elif args.config.get('key_file_location').is_json():
-                args.config['client_secrets'] = json.load(args.config['key_file_location'])
-                LOGGER.info('Client Secrets loaded in from JSON')
-            else:
-                LOGGER.critical("tap-google-analytics: '{}' file not found".format(args.config['key_file_location']))
-                sys.exit(1)
+            args.config['client_secrets'] = json.load(args.config['key_file_location'])
+            LOGGER.info('Client Secrets loaded in from JSON')
+            
     else:
         # If using oauth credentials, verify that all required keys are present
         credentials = args.config['oauth_credentials']
