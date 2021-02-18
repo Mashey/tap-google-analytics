@@ -174,6 +174,9 @@ def process_args():
             if args.config.get('key_file_location').is_dict():
                 args.config['client_secrets'] = args.config['key_file_location']
                 LOGGER.info('Client Secrets loaded in from dict')
+            elif args.config.get('key_file_location').is_json():
+                args.config['client_secrets'] = json.load(args.config['key_file_location'])
+                LOGGER.info('Client Secrets loaded in from JSON')
             else:
                 LOGGER.critical("tap-google-analytics: '{}' file not found".format(args.config['key_file_location']))
                 sys.exit(1)
