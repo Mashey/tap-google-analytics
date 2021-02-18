@@ -163,9 +163,9 @@ def process_args():
 
     # If using a service account, validate that the client_secrets.json file exists and load it
     if args.config.get('key_file_location'):
-            args.config['client_secrets'] = json.load(args.config['key_file_location'])
+            args.config['client_secrets'] = json.loads(args.config['key_file_location'])
             LOGGER.info('Client Secrets loaded in from JSON')
-            
+
     else:
         # If using oauth credentials, verify that all required keys are present
         credentials = args.config['oauth_credentials']
