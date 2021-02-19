@@ -112,7 +112,12 @@ def sync(config, state, catalog):
     if errors_encountered:
         sys.exit(1)
 
-    singer.write_state(f'{"last_run_date"}: "{utils.strftime(utils.now())}"')
+    singer.write_bookmark(state, 
+                          'google_analytics',
+                          'last_run_date', 
+                          utils.strftime(utils.now()))
+
+    singer.write_state(state)
     return
 
 def load_json(path):
@@ -149,8 +154,8 @@ def process_args():
     start_date = utils.strptime_to_utc(args.config['start_date'])
     args.config['start_date'] = utils.strftime(start_date,'%Y-%m-%d')
 
-    if 'last_run_date' in args.state:
-        start_date = utils.strptime_to_utc(args.state['last_run_date'])
+    if 'bookmarks' in args.state:
+        start_date = utils.strptime_to_utc(args.state['bookmarks']['google_analytics']['last_run_date'])
         args.config['start_date'] = utils.strftime(start_date, '%Y-%m-%d')
 
     end_date = args.config.get('end_date', utils.strftime(utils.now()))
@@ -158,13 +163,24 @@ def process_args():
     args.config['end_date'] = utils.strftime(end_date ,'%Y-%m-%d')
 
     if end_date < start_date:
-        LOGGER.critical("tap-google-analytics: start_date '{}' > end_date '{}'".format(start_date, end_date))
+        LOGGER.info("Tap Bookmark is less than one day ago.")
         sys.exit(1)
 
     # If using a service account, validate that the client_secrets.json file exists and load it
     if args.config.get('key_file_location'):
-            args.config['client_secrets'] = json.loads(args.config['key_file_location'])
-            LOGGER.info('Client Secrets loaded in from JSON')
+        if Path(args.config['key_file_location']).is_file():
+                try:
+                    args.config['client_secrets'] = load_json(
+                        args.config['key_file_location'])
+                    LOGGER.info('Client Secrets loaded in from File')
+                except ValueError:
+                    LOGGER.critical(
+                        "tap-google-analytics: The JSON definition in '{}' has errors".format(args.config['key_file_location']))
+                    sys.exit(1)
+        else:
+            if args.config.get('key_file_location'):
+                    args.config['client_secrets'] = json.loads(args.config['key_file_location'])
+                    LOGGER.info('Client Secrets loaded in from JSON')
 
     else:
         # If using oauth credentials, verify that all required keys are present
