@@ -163,8 +163,8 @@ def process_args():
     args.config['end_date'] = utils.strftime(end_date ,'%Y-%m-%d')
 
     if end_date < start_date:
-        LOGGER.info("Tap Bookmark is less than one day ago.")
-        sys.exit(1)
+        LOGGER.info(f"Tap Bookmark is less than one day ago. Last run: {start_date}, Current_Time:{end_date}")
+        sys.exit(0)
 
     # If using a service account, validate that the client_secrets.json file exists and load it
     if args.config.get('key_file_location'):
